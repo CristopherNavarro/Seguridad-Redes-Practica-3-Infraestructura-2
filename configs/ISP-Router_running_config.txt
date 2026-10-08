@@ -1,0 +1,181 @@
+Connected to Dynamips VM "ISP-Router" (ID 1, type c7200) - Console port
+Press ENTER to get the prompt.
+E: Unable to open nvram:/ifIndex-table No such file or directory
+*Oct  8 00:28:44.247: %DEC21140-1-INITFAIL: Unsupported PHY brand timed out, csr5=0x0
+*Oct  8 00:28:50.471: %LINK-3-UPDOWN: Interface FastEthernet0/0, changed state to up
+*Oct  8 00:28:50.487: %LINK-3-UPDOWN: Interface FastEthernet1/0, changed state to up
+*Oct  8 00:28:50.499: %LINK-3-UPDOWN: Interface FastEthernet1/1, changed state to up
+*Oct  8 00:28:50.951: %SYS-5-CONFIG_I: Configured from memory by console
+*Oct  8 00:28:51.543: %SYS-5-RESTART: System restarted --
+Cisco IOS Software, 7200 Software (C7200-ADVENTERPRISEK9-M), Version 15.2(4)S6, RELEASE SOFTWARE (fc1)
+Technical Support: http://www.cisco.com/techsupport
+Copyright (c) 1986-2014 by Cisco Systems, Inc.
+Compiled Fri 08-Aug-14 04:05 by prod_rel_team
+*Oct  8 00:28:51.627: %LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/0, changed state to down
+*Oct  8 00:28:51.627: %LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet1/0, changed state to down
+*Oct  8 00:28:51.631: %LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet1/1, changed state to down
+*Oct  8 00:28:52.955: %LINK-5-CHANGED: Interface FastEthernet0/0, changed state to administratively down
+*Oct  8 00:28:52.967: %LINK-5-CHANGED: Interface FastEthernet1/0, changed state to administratively down
+*Oct  8 00:28:52.979: %LINK-5-CHANGED: Interface FastEthernet1/1, changed state to administratively down
+ISP-Router#
+ISP-Router#
+ISP-Router#enable
+ISP-Router#terminal length 0
+ISP-Router#configure terminal
+Enter configuration commands, one per line.  End with CNTL/Z.
+ISP-Router(config)#hostname ISP-Router
+ISP-Router(config)#no ip domain-lookup
+ISP-Router(config)#interface FastEthernet0/0
+ISP-Router(config-if)# description WAN_TO_CISCO_EDGE
+ISP-Router(config-if)# ip address 200.25.7.1 255.255.255.252
+ISP-Router(config-if)# no shutdown
+ISP-Router(config-if)#interface FastEthernet1/0
+ISP-Router(config-if)# description WAN_TO_FORTIGATE_PORT1
+ISP-Router(config-if)# ip address 200.25.7.5 255.255.255.252
+ISP-Router(config-if)# no shutdown
+ISP-Router(config-if)#line con 0
+ISP-Router(config-line)# privilege level 15
+ISP-Router(config-line)# no login
+ISP-Router(config-line)# logging synchronous
+ISP-Router(config-line)#end
+ISP-Router#write memory
+Warning: Attempting to overwrite an NVRAM configuration previously written
+by a different version of the system image.
+Overwrite the previous NVRAM configuration?[confirm]
+*Oct  8 00:29:49.731: %SYS-5-CONFIG_I: Configured from console by console
+[confirm]
+*Oct  8 00:29:50.951: %LINK-3-UPDOWN: Interface FastEthernet0/0, changed state to up
+*Oct  8 00:29:51.351: %LINK-3-UPDOWN: Interface FastEthernet1/0, changed state to up
+*Oct  8 00:29:51.951: %LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/0, changed state to up
+[confirm]
+*Oct  8 00:29:52.351: %LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet1/0, changed state to up
+[confirm]
+Building configuration...
+[OK]
+ISP-Router#enable
+ISP-Router#terminal length 0
+ISP-Router#show ip interface brief
+Interface              IP-Address      OK? Method Status                Protocol
+FastEthernet0/0        200.25.7.1      YES manual up                    up      
+FastEthernet1/0        200.25.7.5      YES manual up                    up      
+FastEthernet1/1        unassigned      YES unset  administratively down down    
+ISP-Router#ping 200.25.7.2
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 200.25.7.2, timeout is 2 seconds:
+!!!!!
+Success rate is 100 percent (5/5), round-trip min/avg/max = 16/24/40 ms
+ISP-Router#ping 200.25.7.6
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 200.25.7.6, timeout is 2 seconds:
+!!!!!
+Success rate is 100 percent (5/5), round-trip min/avg/max = 8/9/12 ms
+ISP-Router#
+ISP-Router#enable
+ISP-Router#ping 200.25.7.2
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 200.25.7.2, timeout is 2 seconds:
+!!!!!
+Success rate is 100 percent (5/5), round-trip min/avg/max = 12/21/32 ms
+ISP-Router#
+ISP-Router#enable
+ISP-Router#terminal length 0
+ISP-Router#show running-config
+Building configuration...
+
+Current configuration : 1029 bytes
+!
+! Last configuration change at 00:29:49 UTC Thu Oct 8 2026
+!
+version 15.2
+service timestamps debug datetime msec
+service timestamps log datetime msec
+!
+hostname ISP-Router
+!
+boot-start-marker
+boot-end-marker
+!
+!
+!
+no aaa new-model
+no ip icmp rate-limit unreachable
+!
+!
+!
+!
+!
+!
+no ip domain lookup
+ip cef
+no ipv6 cef
+!
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+ip tcp synwait-time 5
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+interface FastEthernet0/0
+ description WAN_TO_CISCO_EDGE
+ ip address 200.25.7.1 255.255.255.252
+ duplex full
+!
+interface FastEthernet1/0
+ description WAN_TO_FORTIGATE_PORT1
+ ip address 200.25.7.5 255.255.255.252
+ speed auto
+ duplex auto
+!
+interface FastEthernet1/1
+ no ip address
+ shutdown
+ speed auto
+ duplex auto
+!
+ip forward-protocol nd
+!
+!
+no ip http server
+no ip http secure-server
+!
+!
+!
+!
+control-plane
+!
+!
+line con 0
+ exec-timeout 0 0
+ privilege level 15
+ logging synchronous
+ stopbits 1
+line aux 0
+ exec-timeout 0 0
+ privilege level 15
+ logging synchronous
+ stopbits 1
+line vty 0 4
+ login
+!
+!
+end
+
+ISP-Router#
