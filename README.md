@@ -204,7 +204,6 @@ Dentro de este repositorio se encuentran todos los archivos fuente generados en 
 * **Running-Config Cisco-Edge-01:** [`configs/Cisco-Edge-01_running_config.txt`](configs/Cisco-Edge-01_running_config.txt)
 * **Running-Config SW-Client:** [`configs/SW-Client_running_config.txt`](configs/SW-Client_running_config.txt)
 * **Configuración Completa FortiGate FGT-Edge-02:** [`configs/FortiGate_Edge02_running_config.txt`](configs/FortiGate_Edge02_running_config.txt)
-* **Scripts de Automatización y Auditoría:** Directorio [`scripts/`](scripts/) con los módulos de configuración y auditoría continua.
 
 ---
 
