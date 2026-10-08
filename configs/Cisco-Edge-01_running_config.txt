@@ -1,0 +1,245 @@
+Connected to Dynamips VM "Cisco-Edge-01" (ID 2, type c7200) - Console port
+Press ENTER to get the prompt.
+ts encaps: 1, #pkts encrypt: 1, #pkts digest: 1
+    #pkts decaps: 0, #pkts decrypt: 0, #pkts verify: 0
+    #pkts compressed: 0, #pkts decompressed: 0
+    #pkts not compressed: 0, #pkts compr. failed: 0
+    #pkts not decompressed: 0, #pkts decompress failed: 0
+    #send errors 0, #recv errors 0
+
+     local crypto endpt.: 200.25.7.2, remote crypto endpt.: 200.25.7.6
+     path mtu 1500, ip mtu 1500, ip mtu idb FastEthernet0/0
+     current outbound spi: 0xC58733F(207123263)
+     PFS (Y/N): Y, DH group: group14
+
+     inbound esp sas:
+      spi: 0xC10F3E1(202437601)
+        transform: esp-des esp-sha-hmac ,
+        in use settings ={Tunnel, }
+        conn id: 1, flow_id: 1, sibling_flags 80000040, crypto map: CMAP
+        sa timing: remaining key lifetime (k/sec): (4370498/3596)
+        IV size: 8 bytes
+        replay detection support: Y
+        Status: ACTIVE(ACTIVE)
+
+     inbound ah sas:
+
+     inbound pcp sas:
+
+     outbound esp sas:
+      spi: 0xC58733F(207123263)
+        transform: esp-des esp-sha-hmac ,
+        in use settings ={Tunnel, }
+        conn id: 2, flow_id: 2, sibling_flags 80000040, crypto map: CMAP
+        sa timing: remaining key lifetime (k/sec): (4370498/3596)
+        IV size: 8 bytes
+        replay detection support: Y
+        Status: ACTIVE(ACTIVE)
+
+     outbound ah sas:
+
+     outbound pcp sas:
+Cisco-Edge-01#
+Cisco-Edge-01#enable
+Cisco-Edge-01#terminal length 0
+Cisco-Edge-01#show ip interface brief
+Interface              IP-Address      OK? Method Status                Protocol
+FastEthernet0/0        200.25.7.2      YES manual up                    up      
+FastEthernet1/0        unassigned      YES unset  up                    up      
+FastEthernet1/0.10     10.25.10.1      YES manual up                    up      
+FastEthernet1/1        unassigned      YES unset  administratively down down    
+Cisco-Edge-01#show crypto isakmp sa
+IPv4 Crypto ISAKMP SA
+dst             src             state          conn-id status
+200.25.7.6      200.25.7.2      QM_IDLE           1001 ACTIVE
+
+IPv6 Crypto ISAKMP SA
+
+Cisco-Edge-01#show crypto ipsec sa
+
+interface: FastEthernet0/0
+    Crypto map tag: CMAP, local addr 200.25.7.2
+
+   protected vrf: (none)
+   local  ident (addr/mask/prot/port): (10.25.10.0/255.255.255.128/0/0)
+   remote ident (addr/mask/prot/port): (10.25.30.0/255.255.255.248/0/0)
+   current_peer 200.25.7.6 port 500
+     PERMIT, flags={origin_is_acl,}
+    #pkts encaps: 22, #pkts encrypt: 22, #pkts digest: 22
+    #pkts decaps: 19, #pkts decrypt: 19, #pkts verify: 19
+    #pkts compressed: 0, #pkts decompressed: 0
+    #pkts not compressed: 0, #pkts compr. failed: 0
+    #pkts not decompressed: 0, #pkts decompress failed: 0
+    #send errors 0, #recv errors 0
+
+     local crypto endpt.: 200.25.7.2, remote crypto endpt.: 200.25.7.6
+     path mtu 1500, ip mtu 1500, ip mtu idb FastEthernet0/0
+     current outbound spi: 0xC58733F(207123263)
+     PFS (Y/N): Y, DH group: group14
+
+     inbound esp sas:
+      spi: 0xC10F3E1(202437601)
+        transform: esp-des esp-sha-hmac ,
+        in use settings ={Tunnel, }
+        conn id: 1, flow_id: 1, sibling_flags 80000040, crypto map: CMAP
+        sa timing: remaining key lifetime (k/sec): (4370496/3152)
+        IV size: 8 bytes
+        replay detection support: Y
+        Status: ACTIVE(ACTIVE)
+
+     inbound ah sas:
+
+     inbound pcp sas:
+
+     outbound esp sas:
+      spi: 0xC58733F(207123263)
+        transform: esp-des esp-sha-hmac ,
+        in use settings ={Tunnel, }
+        conn id: 2, flow_id: 2, sibling_flags 80000040, crypto map: CMAP
+        sa timing: remaining key lifetime (k/sec): (4370496/3152)
+        IV size: 8 bytes
+        replay detection support: Y
+        Status: ACTIVE(ACTIVE)
+
+     outbound ah sas:
+
+     outbound pcp sas:
+Cisco-Edge-01#
+Cisco-Edge-01#show crypto isakmp sa
+IPv4 Crypto ISAKMP SA
+dst             src             state          conn-id status
+200.25.7.6      200.25.7.2      QM_IDLE           1001 ACTIVE
+
+IPv6 Crypto ISAKMP SA
+
+Cisco-Edge-01#
+Cisco-Edge-01#enable
+Cisco-Edge-01#terminal length 0
+Cisco-Edge-01#show running-config
+Building configuration...
+
+Current configuration : 1682 bytes
+!
+! Last configuration change at 00:38:03 UTC Thu Oct 8 2026
+!
+version 15.2
+service timestamps debug datetime msec
+service timestamps log datetime msec
+!
+hostname Cisco-Edge-01
+!
+boot-start-marker
+boot-end-marker
+!
+!
+!
+no aaa new-model
+no ip icmp rate-limit unreachable
+!
+!
+!
+ip dhcp excluded-address 10.25.10.1 10.25.10.9
+!
+ip dhcp pool VLAN10_USERS
+ network 10.25.10.0 255.255.255.128
+ default-router 10.25.10.1 
+ dns-server 8.8.8.8 
+!
+!
+!
+no ip domain lookup
+ip cef
+no ipv6 cef
+!
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+ip tcp synwait-time 5
+! 
+!
+crypto isakmp policy 10
+ authentication pre-share
+ group 14
+crypto isakmp key ITLA2025! address 200.25.7.6     
+!
+!
+crypto ipsec transform-set TSET esp-des esp-sha-hmac 
+ mode tunnel
+!
+!
+!
+crypto map CMAP 10 ipsec-isakmp 
+ set peer 200.25.7.6
+ set transform-set TSET 
+ match address VPN_TRAFFIC
+!
+!
+!
+!
+!
+interface FastEthernet0/0
+ description WAN_TO_ISP
+ ip address 200.25.7.2 255.255.255.252
+ duplex full
+ crypto map CMAP
+!
+interface FastEthernet1/0
+ no ip address
+ speed auto
+ duplex auto
+!
+interface FastEthernet1/0.10
+ description LAN_VLAN10_USERS
+ encapsulation dot1Q 10
+ ip address 10.25.10.1 255.255.255.128
+!
+interface FastEthernet1/1
+ no ip address
+ shutdown
+ speed auto
+ duplex auto
+!
+ip forward-protocol nd
+!
+!
+no ip http server
+no ip http secure-server
+ip route 0.0.0.0 0.0.0.0 200.25.7.1
+!
+ip access-list extended VPN_TRAFFIC
+ permit ip 10.25.10.0 0.0.0.127 10.25.30.0 0.0.0.7
+!
+!
+!
+!
+control-plane
+!
+!
+line con 0
+ exec-timeout 0 0
+ privilege level 15
+ logging synchronous
+ stopbits 1
+line aux 0
+ exec-timeout 0 0
+ privilege level 15
+ logging synchronous
+ stopbits 1
+line vty 0 4
+ login
+!
+!
+end
+
+Cisco-Edge-01#
