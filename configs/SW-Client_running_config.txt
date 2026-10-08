@@ -1,0 +1,191 @@
+
+SW-Client#
+SW-Client#write memory
+Building configuration...
+
+*Oct  8 00:33:53.069: %SYS-5-CONFIG_I: Configured from console by console
+*Oct  8 00:33:54.122: %LINK-3-UPDOWN: Interface GigabitEthernet1/1, changed state to upCompressed configuration from 4503 bytes to 2322 bytes[OK]
+*Oct  8 00:33:54.789: %LINK-3-UPDOWN: Interface GigabitEthernet2/1, changed state to up
+SW-Client#
+SW-Client#show interfaces status
+
+Port      Name               Status       Vlan       Duplex  Speed Type 
+Gi0/0     TRUNK_TO_ROUTER    connected    trunk      a-full   auto RJ45
+Gi0/1     ACCESS_PC_USER_NOP notconnect   10         a-full   auto RJ45
+Gi0/2     ACCESS_PC_USER_PRI notconnect   10         a-full   auto RJ45
+Gi0/3                        disabled     999          auto   auto RJ45
+Gi1/0                        disabled     999          auto   auto RJ45
+Gi1/1     ACCESS_PC_USER_NOP connected    10         a-full   auto RJ45
+Gi1/2                        disabled     999          auto   auto RJ45
+Gi1/3                        disabled     999          auto   auto RJ45
+Gi2/0                        disabled     999          auto   auto RJ45
+Gi2/1     ACCESS_PC_USER_PRI connected    10         a-full   auto RJ45
+Gi2/2                        disabled     999          auto   auto RJ45
+Gi2/3                        disabled     999          auto   auto RJ45
+Gi3/0                        disabled     999          auto   auto RJ45
+Gi3/1                        disabled     999          auto   auto RJ45
+Gi3/2                        disabled     999          auto   auto RJ45
+Gi3/3                        disabled     999          auto   auto RJ45
+SW-Client#
+SW-Client#
+*Oct  8 00:33:55.125: %LINEPROTO-5-UPDOWN: Line protocol on Interface GigabitEthernet1/1, changed state to up
+*Oct  8 00:33:55.481: %GRUB-5-CONFIG_WRITING: GRUB configuration is being updated on disk. Please wait...
+*Oct  8 00:33:55.791: %LINEPROTO-5-UPDOWN: Line protocol on Interface GigabitEthernet2/1, changed state to up
+*Oct  8 00:33:56.192: %GRUB-5-CONFIG_WRITTEN: GRUB configuration was written to disk successfully.
+*Oct  8 00:34:34.126: %PNP-6-PNP_DISCOVERY_STOPPED: PnP Discovery stopped (Config Wizard)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+SW-Client con0 is now available
+
+
+
+
+
+Press RETURN to get started.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+IOSv - Cisco Systems Confidential -
+
+Supplemental End User License Restrictions
+
+This IOSv software is provided AS-IS without warranty of any kind. Under no circumstances may this software be used separate from the Cisco Modeling Labs Software that this software was provided with, or deployed or used as part of a production environment.
+
+By using the software, you agree to abide by the terms and conditions of the Cisco End User License Agreement at http://www.cisco.com/go/eula. Unauthorized use or distribution of this software is expressly prohibited.
+
+SW-Client#
+SW-Client#enable
+SW-Client#
+SW-Client#terminal length 0
+SW-Client#
+SW-Client#show running-config
+Building configuration...
+
+Current configuration : 4503 bytes
+!
+! Last configuration change at 00:34:33 UTC Thu Oct 8 2026
+!
+version 15.2
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+service compress-config
+!
+hostname SW-Client
+!
+boot-start-marker
+boot-end-marker
+!
+!
+!
+no aaa new-model
+!
+!
+!
+!
+!
+!
+!
+!
+no ip domain-lookup
+ip cef
+no ipv6 cef
+!
+!
+!
+spanning-tree mode pvst
+spanning-tree extend system-id
+!
+!
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface GigabitEthernet0/0
+ description TRUNK_TO_ROUTER
+ switchport trunk allowed vlan 10
+ switchport trunk encapsulation dot1q
+ switchport trunk native vlan 99
+ switchport mode trunk
+ negotiation auto
+!
+in
