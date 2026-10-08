@@ -1,0 +1,42 @@
+================================================================================
+INSTITUTO TECNOLÓGICO DE LAS AMÉRICAS (ITLA)
+ASIGNATURA: SEGURIDAD DE REDES
+DOCENTE: JONATHAN ESTEBAN RONDÓN CORNIEL
+================================================================================
+
+DATOS DEL ESTUDIANTE:
+--------------------------------------------------------------------------------
+Nombre: Cristopher Navarro
+Matrícula: 2025-0720
+Asignación: Tarea Semana 4 (Práctica 3)
+Módulo: Infraestructura 2 - Arquitectura Bastion / Jump Server, VPN IPsec Site-to-Site y Control de Acceso Granular
+
+ENLACES OFICIALES DE ENTREGA:
+--------------------------------------------------------------------------------
+Enlace del Repositorio de GitHub:
+https://github.com/CristopherNavarro/Seguridad-Redes-Practica-3-Infraestructura-2
+
+Enlace del Video Demostrativo (YouTube):
+https://youtu.be/PQEGjyYmG2w
+
+DETALLES DE LA DEMOSTRACIÓN EN VIDEO:
+--------------------------------------------------------------------------------
+- Duración: Menor a 10 minutos.
+- Requisitos en pantalla: Rostro, voz audible, fecha y hora visibles durante la grabación.
+- Enfoque técnico: Demostración estricta y funcional del cumplimiento de los objetivos de seguridad:
+  1. Direccionamiento IP basado en matrícula (10.25.10.0/25, 10.25.20.0/29, 10.25.30.0/29, 200.25.7.0/30, 200.25.7.4/30).
+  2. Conectividad WAN a través de ISP simulado y túnel VPN IPsec Site-to-Site activo (Cisco 7200 <-> FortiGate 7.0.9).
+  3. Demostración y gestión del Firewall FortiGate por Web GUI:
+     - Estado UP del túnel VPN IPsec en Dashboard y sección VPN.
+     - Jerarquía y aplicación de las 5 políticas de firewall perimetral.
+  4. Control de acceso granular según perfiles de privilegios:
+     - PC-User-NoPriv: Acceso permitido al portal web del Jump Server (HTTP 80).
+     - PC-User-NoPriv: Acceso SSH (puerto 22) al Jump Server bloqueado explícitamente por política.
+     - PC-User-Priv: Acceso completo autorizado al Jump Server por Web (HTTP 80), PuTTY SSH (puerto 22) y Escritorio Remoto RDP (puerto 3389).
+  5. Modelo Bastion Host / Salto Obligatorio:
+     - Prohibición total de acceso directo desde la red de clientes hacia el Servidor de Caja (puerto 443 bloqueado sin salto).
+     - Jump Server con acceso autorizado hacia el Servidor de Caja exclusivamente mediante protocolos cifrados (HTTPS 443, SSH 22, RDP 3389).
+     - Tráfico no cifrado (HTTP 80) hacia el Servidor de Caja restringido y bloqueado en el firewall.
+  6. Endurecimiento de Capa 2 en conmutador de clientes Cisco: Spanning-Tree PortFast, BPDU Guard y VLAN nativa 99.
+
+================================================================================
